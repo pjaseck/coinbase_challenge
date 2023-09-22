@@ -1,18 +1,6 @@
-class Order:
-    def __init__(self, price, quantity, count):
-        self.price = price
-        self.quantity = quantity
-        self.count = count
+from obj.order import Order
 
-    @staticmethod
-    def from_json(json_data):
-        return Order(
-            json_data[0][0],
-            json_data[0][1],
-            json_data[0][2]
-        )
-
-class Book:
+class ProductBook:
     def __init__(self, bids, asks, sequence, auction_mode, auction, time):
         self.bids = bids
         self.asks = asks
@@ -25,7 +13,7 @@ class Book:
     def from_json(json_data):
         bids = Order.from_json(json_data['bids'])
         asks = Order.from_json(json_data['asks'])
-        return Book(
+        return ProductBook(
             bids,
             asks,
             json_data['sequence'],

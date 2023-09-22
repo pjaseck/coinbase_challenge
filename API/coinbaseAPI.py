@@ -4,7 +4,7 @@ class Request():
     def __init__(self, prod_id):
         self.prod_id = prod_id
 
-    def get_book(self):
+    def get_product_book(self):
         endpoint = f"https://api.pro.coinbase.com/products/{self.prod_id}/book"
         response = requests.get(endpoint).json()
         return response
