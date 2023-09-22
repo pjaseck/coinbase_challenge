@@ -1,5 +1,7 @@
 from API.coinbaseAPI import Request
 from obj.product_book import ProductBook
+from obj.candle import Candle
+from metrics import Metrics
 import time
 import os
 from datetime import datetime
@@ -13,10 +15,16 @@ starttime = time.time()
 while True:
     # Request book data from API
     request = Request(prod_id)
-    response = request.get_book()
+    prod_book_response = request.get_product_book()
+    candles_response_60 = request.get_product_candles(60)
+    candles_response_300 = request.get_product_candles(300)
+    candles_response_900 = request.get_product_candles(900)
     # Read data from json
-    product_data = ProductBook.from_json(response)
-    # Output
+    product_data = ProductBook.from_json(prod_book_response)
+    candles_data_60 = Candle.from_json(candles_response_60)
+    andles_data_300 = Candle.from_json(candles_response_300)
+    andles_data_900 = Candle.from_json(candles_response_900)
+    # Basic output
     best_bid_price = float(product_data.bids.price)
     best_ask_price = float(product_data.asks.price)
     best_bid_quant = product_data.bids.quantity
@@ -33,4 +41,8 @@ while True:
     print(f'Best ask\nPrice: {best_ask_price}\nAmount: {best_ask_quant}')
     print('-----------------------')
     print(f'Biggest observed bid-ask difference: {biggest_diff}')
+    # Metrics
+    # Mid price
+    
+
     time.sleep(5.0 - ((time.time() - starttime) % 5.0))
