@@ -43,6 +43,10 @@ class ProductBook:
     def from_json(json_data):
         """Converts response in json file into callable ProductBook object.
 
+        Parameters
+        ----------
+        json_data : json
+
         Returns
         -------
         class
