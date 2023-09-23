@@ -2,6 +2,9 @@ from coinbase.obj.candle import Candle
 from py_linq import Enumerable
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import pandas as pd
+import warnings
+from statsmodels.tools.sm_exceptions import ConvergenceWarning
+warnings.simplefilter('ignore', ConvergenceWarning)
 
 class Metrics:
     def __init__(self, data):
