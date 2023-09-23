@@ -28,5 +28,11 @@ class Output:
         print(f'Biggest observed bid-ask difference: {biggest_diff}')
         return biggest_diff
     
-    def mid_price_info(self, *args):
-        pass
+    def mid_price_info(self, *argv):
+        print('-----------------------')
+        print('Best bid and ask mid-price')
+        for arg in argv:
+            candles_response = self.request.get_product_candles(arg)
+            mid_price = Metrics(candles_response).mid_price()
+            minutes = int(arg/60)
+            print(f'Last {minutes} min: {mid_price}')
