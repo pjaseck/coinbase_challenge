@@ -5,14 +5,13 @@ class Metrics:
     def __init__(self, data):
         self.data = data
 
-    def forecast(data):
-        pass
-
-    def forecast_error(data):
-        pass
-
-    @staticmethod
-    def mid_price(json_data):
-        candles = [Candle.from_json(data) for data in json_data]
+    def mid_price(self):
+        candles = [Candle.from_json(data) for data in self.data]
         candles_av = Enumerable(candles).avg(lambda x: (x.low + x.high)/2)
         return candles_av
+    
+    def forecast(self):
+        pass
+
+    def forescast_error(self):
+        pass

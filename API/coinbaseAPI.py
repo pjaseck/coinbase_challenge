@@ -23,4 +23,3 @@ class Request():
         endpoint = f"https://api.coinbase.com/v2/prices/{self.prod_id}/sell"
         response = requests.get(endpoint).json()
         return response
-

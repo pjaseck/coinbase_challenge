@@ -21,9 +21,6 @@ while True:
     candles_response_900 = request.get_product_candles(900)
     # Read data from json
     product_data = ProductBook.from_json(prod_book_response)
-    candles_data_60 = Candle.from_json(candles_response_60)
-    andles_data_300 = Candle.from_json(candles_response_300)
-    andles_data_900 = Candle.from_json(candles_response_900)
     # Basic output
     best_bid_price = float(product_data.bids.price)
     best_ask_price = float(product_data.asks.price)
@@ -43,6 +40,9 @@ while True:
     print(f'Biggest observed bid-ask difference: {biggest_diff}')
     # Metrics
     # Mid price
-    
-
+    mid_price_60 = Metrics(candles_response_60).mid_price()
+    mid_price_300 = Metrics(candles_response_300).mid_price()
+    mid_price_900 = Metrics(candles_response_900).mid_price()
+    print('-----------------------')
+    print(f'Mid price:\n Last 1 min: {mid_price_60} | last 5 min: {mid_price_300} | last 15 min: {mid_price_900}')
     time.sleep(5.0 - ((time.time() - starttime) % 5.0))
