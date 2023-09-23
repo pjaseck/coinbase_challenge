@@ -17,10 +17,11 @@ class Metrics:
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
         df['mid-price'] = (df['low'] + df['high'])/2
         df = df.sort_values(by=['timestamp'], ascending=True)
-        fit1 = SARIMAX(df['mid-price'], order=(2, 1, 4),seasonal_order=(0,1,1,7)).fit(disp=0)
-        df_pred = fit1.forecast(steps=forecast_time)
-        array = df_pred.to_numpy()
-        return array[-1]
+        df.index = pd.DatetimeIndex(df.index).to_period('M')
+        fit = SARIMAX(df['mid-price'], order=(2, 1, 4),seasonal_order=(0,1,1,7)).fit(disp=0)
+        prediction = fit.forecast(steps=forecast_time)
+        pred_array = prediction.to_numpy()
+        return pred_array[-1]
 
     def forescast_error(self):
         pass

@@ -46,6 +46,7 @@ while True:
     print('-----------------------')
     print(f'Mid price:\n Last 1 min: {mid_price_60} | last 5 min: {mid_price_300} | last 15 min: {mid_price_900}')
     # Forecast
-    result = Metrics(candles_response_60).forecast_av(60)
-    print(result)
+    forecast_60 = Metrics(candles_response_300).forecast_av(60)
+    print('-----------------------')
+    print(f'Forecasted mid-price in 60 seconds: {forecast_60}')
     time.sleep(5.0 - ((time.time() - starttime) % 5.0))
