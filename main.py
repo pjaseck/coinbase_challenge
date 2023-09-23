@@ -1,4 +1,4 @@
-from coinbase.coinbaseAPI import Request
+from coinbase.api import Request
 from coinbase.obj.product_book import ProductBook
 from metrics import Metrics
 import time
