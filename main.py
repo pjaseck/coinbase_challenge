@@ -1,11 +1,8 @@
-from API.coinbaseAPI import Request
-from obj.product_book import ProductBook
-from obj.candle import Candle
+from coinbase.coinbaseAPI import Request
+from coinbase.obj.product_book import ProductBook
 from metrics import Metrics
 import time
 import os
-from datetime import datetime
-
 # User input
 # prod_id = str(input('Provide product ID (e.g. BTC-USD): ')).upper()
 prod_id = 'BTC-USD'

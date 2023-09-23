@@ -1,4 +1,4 @@
-from obj.order import Order
+from coinbase.obj.order import Order
 
 class ProductBook:
     """

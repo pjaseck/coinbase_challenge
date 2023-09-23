@@ -1,4 +1,4 @@
-from obj.candle import Candle
+from coinbase.obj.candle import Candle
 from py_linq import Enumerable
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import pandas as pd
