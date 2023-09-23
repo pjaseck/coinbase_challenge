@@ -1,6 +1,5 @@
 from coinbase.api import Request
 from cli.output import Output
-from metrics import Metrics
 import time
 import os
 import platform
@@ -30,10 +29,8 @@ def main():
         # Metrics
         # Print best bid-ask mid-price for given timeslices
         output.mid_price_info(60,300,900)
-        # Forecast
-        #forecast_60 = Metrics(candles_response_300).forecast_av(60)
-        #print('-----------------------')
-        #print(f'Forecasted mid-price in 60 seconds: {forecast_60}')
+        # Print forecast of the mid-price in next 60 seconds
+        output.forecast_info(60,60)
         time.sleep(5.0 - ((time.time() - starttime) % 5.0))
 
 if __name__ == "__main__":

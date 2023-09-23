@@ -1,6 +1,8 @@
 from coinbase.obj.product_book import ProductBook
 from metrics import Metrics
 
+# TODO: round results?
+
 class Output:
     def __init__(self, request):
         self.request = request
@@ -36,3 +38,9 @@ class Output:
             mid_price = Metrics(candles_response).mid_price()
             minutes = int(arg/60)
             print(f'Last {minutes} min: {mid_price}')
+
+    def forecast_info(self, based, ahead):
+        candles_response = self.request.get_product_candles(based)
+        forecast = Metrics(candles_response).forecast_av(ahead)
+        print('-----------------------')
+        print(f'Forecasted mid-price in {ahead} seconds: {forecast}')
