@@ -1,5 +1,6 @@
 from obj.candle import Candle
 from py_linq import Enumerable
+import pandas as pd
 
 class Metrics:
     def __init__(self, data):
