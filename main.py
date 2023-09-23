@@ -1,9 +1,11 @@
 from coinbase.api import Request
-from coinbase.obj.product_book import ProductBook
+from cli.output import Output
 from metrics import Metrics
 import time
 import os
 import platform
+
+# TODO: PyInstaller to create executable?
 
 system = platform.system()
 # User input
@@ -16,32 +18,16 @@ def main():
     while True:
         # Request book data from API
         request = Request(prod_id)
-        prod_book_response = request.get_product_book()
         candles_response_60 = request.get_product_candles(60)
         candles_response_300 = request.get_product_candles(300)
         candles_response_900 = request.get_product_candles(900)
-        # Read data from json
-        product_data = ProductBook.from_json(prod_book_response)
-        # Basic output
-        best_bid_price = float(product_data.bids.price)
-        best_ask_price = float(product_data.asks.price)
-        best_bid_quant = product_data.bids.quantity
-        best_ask_quant = product_data.asks.quantity
-        book_time = product_data.time
-        bid_ask_diff =  best_ask_price - best_bid_price
-        if bid_ask_diff > biggest_diff:
-            biggest_diff = bid_ask_diff
+        # Clear console
         if system in ('Linux','Darwin'): 
             os.system('clear')
         else:
             os.system('cls')
-        print(f'Book time: {book_time}')
-        print('-----------------------')
-        print(f'Best bid\nPrice: {best_bid_price}\nAmount: {best_bid_quant}')
-        print('-----------------------')
-        print(f'Best ask\nPrice: {best_ask_price}\nAmount: {best_ask_quant}')
-        print('-----------------------')
-        print(f'Biggest observed bid-ask difference: {biggest_diff}')
+        # Print information regarding best bid and ask and monitor biggest difference between their value
+        biggest_diff = Output(request).product_info(biggest_diff)
         # Metrics
         # Mid price
         mid_price_60 = Metrics(candles_response_60).mid_price()
