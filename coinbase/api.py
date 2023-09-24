@@ -7,7 +7,7 @@ class Request():
     Attributes
     ----------
     prod_id : str
-        a str representing product ID (e.g. BTC-USD)
+        a product ID representing the trading pair (e.g., 'BTC-USD')
     granularity : int
         a value of a timeslice of historical rate data, the only accepted values: {60, 300, 900, 3600, 21600, 86400}
 
@@ -30,19 +30,24 @@ class Request():
         self.prod_id = prod_id
 
     def get_product_book(self):
-        """Provides API response for a product book at level 1 for a given product ID.
+        """This method sends an HTTP GET request to the Coinbase Pro API's product book
+        endpoint for the given trading pair, retrieves the order book data in JSON format,
+        and returns the response.
 
         Returns
         -------
-        json
-            Json file with the best bid, ask and auction information.
+        dict
+            A dictionary containing the product book data in JSON format.
+        
         """
         endpoint = f"https://api.pro.coinbase.com/products/{self.prod_id}/book"
         response = requests.get(endpoint).json()
         return response
     
     def get_product_candles(self, granularity):
-        """Provides API response for a product book at level 1 for a given product ID.
+        """This method sends an HTTP GET request to the Coinbase Pro API's product candles
+        endpoint for the given trading pair and granularity, retrieves the candlestick data at level 1
+        in JSON format, and returns the response.
 
         Parameters
         ----------
@@ -51,8 +56,8 @@ class Request():
         
         Returns
         -------
-        json
-            Json file with historic rates for a product. 
+        list
+            A list containing the candlestick data in JSON format.
             Rates are returned in grouped buckets. Candle schema is of the form [timestamp, price_low, price_high, price_open, price_close].
         """
         endpoint = f"https://api.pro.coinbase.com/products/{self.prod_id}/candles?granularity={granularity}"

@@ -6,9 +6,9 @@ class ProductBook:
 
     Attributes
     ----------
-    bids : array
+    bids : list
         a list containing best bid details (price, quantity and count)
-    asks : array
+    asks : list
         a list containing best bid details (price, quantity and count)
     sequence : str
         unique number for the order book response
@@ -18,16 +18,16 @@ class ProductBook:
     Methods
     -------
     from_json
-        Converts response in json file into callable ProductBook object.
+        Converts response in json file into ProductBook object.
 
     """
     def __init__(self, bids, asks, sequence, time):
         """
         Parameters
         ----------
-        bids : array
+        bids : list
             a list containing best bid details
-        asks : array
+        asks : list
             a list containing best bid details
         sequence : str
             unique number for the order book response
@@ -45,7 +45,8 @@ class ProductBook:
 
         Parameters
         ----------
-        json_data : json
+        json_data : dict
+            A dictionary containing product book data in JSON format.
 
         Returns
         -------

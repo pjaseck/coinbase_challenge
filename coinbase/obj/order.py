@@ -34,11 +34,12 @@ class Order:
 
     @staticmethod
     def from_json(json_data):
-        """Converts a list of order parameters into callable Order object.
+        """Converts a list of order parameters into Order object.
 
         Parameters
         ----------
-        json_data : json
+        json_data : list
+            A list containing order data in JSON format.
         
         Returns
         -------

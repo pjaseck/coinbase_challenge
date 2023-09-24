@@ -20,7 +20,7 @@ class Candle:
     Methods
     -------
     from_json
-        Converts response in json file into callable Candle object.
+        Converts response in json file into Candle object.
 
     """
     def __init__(self, time, low, high, open, close, volume):
@@ -49,11 +49,12 @@ class Candle:
     
     @staticmethod
     def from_json(json_data):
-        """Converts response in json file into callable Candle object.
+        """Converts response in json file into Candle object.
 
         Parameters
         ----------
-        json_data : json
+        json_data : list
+            A list containing candlestick data in JSON format.
 
         Returns
         -------
