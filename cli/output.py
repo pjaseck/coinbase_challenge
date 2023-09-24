@@ -79,9 +79,9 @@ class Output:
         print('-----------------------')
         print('Best bid and ask mid-price')
         for arg in argv:
-            candles_response = self.request.get_product_candles(arg)
-            mid_price = Metrics(candles_response).mid_price()
-            minutes = int(arg/60)
+            candles_response = self.request.get_product_candles(60)
+            mid_price = Metrics(candles_response).mid_price(arg)
+            minutes = arg
             print(f'Last {minutes} min: {mid_price}')
 
     def forecast_info(self, granularity, ahead):

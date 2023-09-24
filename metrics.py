@@ -3,6 +3,7 @@ from py_linq import Enumerable
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import pandas as pd
 import warnings
+import time
 from statsmodels.tools.sm_exceptions import ConvergenceWarning
 warnings.simplefilter('ignore', ConvergenceWarning)
 
@@ -32,8 +33,13 @@ class Metrics:
         """
         self.data = data
 
-    def mid_price(self):
+    def mid_price(self, timeframe):
         """Calculates average price of the highest bid and lowest ask from product candle response json file.
+
+        Parameters
+        ----------
+        timeframe : int
+            last minutes from which the average price is supposed to be calculated
 
         Returns
         -------
@@ -41,7 +47,13 @@ class Metrics:
             Average price of best bid and best ask.
         """
         candles = [Candle.from_json(data) for data in self.data]
-        candles_av = Enumerable(candles).avg(lambda x: (x.low + x.high)/2)
+        if timeframe == 1:
+            last_candle = candles[-1]
+            candles_av = (last_candle.high + last_candle.low)/2
+        else:
+            candles_slice = Enumerable(candles).where(lambda x: x.time >= (time.time() - timeframe*60))
+            candles_av = candles_slice.avg(lambda x: (x.low + x.high)/2)
+            #candles_av_total = Enumerable(candles).avg(lambda x: (x.low + x.high)/2)
         return candles_av
     
     def forecast_av(self, forecast_time):

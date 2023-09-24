@@ -25,8 +25,8 @@ def main():
             # Print information regarding best bid and ask and monitor biggest difference between their value
             biggest_diff = output.product_info(biggest_diff)
             # Metrics
-            # Print best bid-ask mid-price for given timeslices
-            output.mid_price_info(60,300,900)
+            # Print best bid-ask mid-price in last 1,5 and 15 minutes
+            output.mid_price_info(1,5,15)
             # Print forecast of the mid-price in next 60 seconds based on actual data with 60 seconds granularity
             output.forecast_info(60,60)
             time.sleep(5.0 - ((time.time() - starttime) % 5.0))
