@@ -4,10 +4,47 @@ from metrics import Metrics
 # TODO: round results?
 
 class Output:
+    """
+    A class used to provide output to the console.
+
+    Attributes
+    ----------
+    request : class
+        Request object
+    
+    Methods
+    -------
+    product_info
+        Retrieves and displays product book information.  
+    mid_price_info
+        Retrieve and display mid-price information.
+    forecast_info
+        Retrieve and display forecasted mid-price information.
+    """
     def __init__(self, request):
+        """
+        Parameters
+        ----------
+        request : class
+            Request object
+        """
         self.request = request
 
     def product_info(self, biggest_diff):
+        """Retrieves and displays product book information.         
+        This method fetches data from the product book API endpoint, processes it, and prints relevant information to the console.
+
+        Parameters
+        ----------
+        biggest_diff : float
+            The biggest observed bid-ask difference.
+
+        Returns
+        -------
+        float
+            The updated biggest observed bid-ask difference.
+        
+        """
         prod_book_response = self.request.get_product_book()
         # Read data from json
         product_data = ProductBook.from_json(prod_book_response)
@@ -31,6 +68,14 @@ class Output:
         return biggest_diff
     
     def mid_price_info(self, *argv):
+        """Retrieve and display mid-price information.
+        This method fetches data from the product candles API endpoint, calculates the mid-price, and prints it for specified time intervals.
+
+        Parameters
+        ----------
+        *argv : int
+            Variable-length argument list of time intervals (in seconds).
+        """
         print('-----------------------')
         print('Best bid and ask mid-price')
         for arg in argv:
@@ -40,6 +85,17 @@ class Output:
             print(f'Last {minutes} min: {mid_price}')
 
     def forecast_info(self, based, ahead):
+        """Retrieve and display forecasted mid-price information.
+        This method fetches data from the product candles API endpoint, calculates a forecasted mid-price for a specified time ahead,
+        and prints the ouput in console.
+
+        Parameters
+        ----------
+        based : int
+            The time interval (in seconds) based on which the forecast is made.
+        ahead : int
+            The time interval (in seconds) ahead for the forecast.
+        """
         candles_response = self.request.get_product_candles(based)
         forecast = Metrics(candles_response).forecast_av(ahead)
         print('-----------------------')
