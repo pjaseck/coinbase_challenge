@@ -27,7 +27,7 @@ def main():
             # Metrics
             # Print best bid-ask mid-price for given timeslices
             output.mid_price_info(60,300,900)
-            # Print forecast of the mid-price in next 60 seconds based on last 60 seconds history data
+            # Print forecast of the mid-price in next 60 seconds based on actual data with 60 seconds granularity
             output.forecast_info(60,60)
             time.sleep(5.0 - ((time.time() - starttime) % 5.0))
     except KeyboardInterrupt:

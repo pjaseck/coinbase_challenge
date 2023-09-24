@@ -9,7 +9,7 @@ class Request():
     prod_id : str
         a product ID representing the trading pair (e.g., 'BTC-USD')
     granularity : int
-        a value of a timeslice of historical rate data, the only accepted values: {60, 300, 900, 3600, 21600, 86400}
+        an interval of historical candlestick data in seconds, the only accepted values: {60, 300, 900, 3600, 21600, 86400}
 
     Methods
     -------
@@ -52,7 +52,7 @@ class Request():
         Parameters
         ----------
         granularity : int
-            a value of a timeslice of historical rate data, the only accepted values: {60, 300, 900, 3600, 21600, 86400}
+            an interval of historical candlestick data in seconds, the only accepted values: {60, 300, 900, 3600, 21600, 86400}
         
         Returns
         -------

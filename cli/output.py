@@ -84,19 +84,19 @@ class Output:
             minutes = int(arg/60)
             print(f'Last {minutes} min: {mid_price}')
 
-    def forecast_info(self, based, ahead):
+    def forecast_info(self, granularity, ahead):
         """Retrieve and display forecasted mid-price information.
         This method fetches data from the product candles API endpoint, calculates a forecasted mid-price for a specified time ahead,
         and prints the ouput in console.
 
         Parameters
         ----------
-        based : int
-            The time interval (in seconds) based on which the forecast is made.
+        granularity : int
+            an interval of historical candlestick data in seconds
         ahead : int
-            The time interval (in seconds) ahead for the forecast.
+            the time interval (in seconds) ahead for the forecast
         """
-        candles_response = self.request.get_product_candles(based)
+        candles_response = self.request.get_product_candles(granularity)
         forecast = Metrics(candles_response).forecast_av(ahead)
         print('-----------------------')
         print(f'Forecasted mid-price in {ahead} seconds: {forecast}')
