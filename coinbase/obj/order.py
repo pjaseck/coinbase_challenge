@@ -4,11 +4,11 @@ class Order:
 
     Attributes
     ----------
-    price : str
+    price : float
         the price of the transaction (buy or sell)
-    quantity : str
+    quantity : float
         a quantity of the product that can be purchased/selled for the price
-    count : str
+    count : float
         a number of transactions at this price level
 
     Methods
@@ -21,11 +21,11 @@ class Order:
         """
         Parameters
         ----------
-        price : str
+        price : float
             the price of the transaction (buy or sell)
-        quantity : str
+        quantity : float
             a quantity of the product that can be purchased/selled for the price
-        count : str
+        count : float
             a number of transactions at this price level
         """
         self.price = price

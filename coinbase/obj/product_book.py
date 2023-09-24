@@ -29,9 +29,9 @@ class ProductBook:
             a list containing best bid details
         asks : list
             a list containing best bid details
-        sequence : str
+        sequence : int
             unique number for the order book response
-        time : str
+        time : datetime
             product book time
         """
         self.bids = bids

@@ -4,17 +4,17 @@ class Candle:
 
     Attributes
     ----------
-    time : str
-        time bucket start time
-    low : str
+    time : int
+        time bucket start time in unix time
+    low : float
         low lowest price during the bucket interval
-    high : str
+    high : float
         high highest price during the bucket interval
-    open : str
+    open : float
         open opening price (first trade) in the bucket interval
-    close : str
+    close : float
         close closing price (last trade) in the bucket interval
-    volume : str
+    volume : float
         volume volume of trading activity during the bucket interval
 
     Methods
@@ -27,17 +27,17 @@ class Candle:
         """
         Parameters
         ----------
-        time : str
-            time bucket start time
-        low : str
+        time : int
+            time bucket start time in unix time
+        low : float
             low lowest price during the bucket interval
-        high : str
+        high : float
             high highest price during the bucket interval
-        open : str
+        open : float
             open opening price (first trade) in the bucket interval
-        close : str
+        close : float
             close closing price (last trade) in the bucket interval
-        volume : str
+        volume : float
             volume volume of trading activity during the bucket interval
         """
         self.time = time
