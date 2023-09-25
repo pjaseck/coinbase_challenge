@@ -1,7 +1,7 @@
-from coinbase.obj.product_book import ProductBook
 from metrics import Metrics
 
-# TODO: round results?
+
+# TODO: round results?, Metrics output as input?
 
 class Output:
     """
@@ -9,8 +9,8 @@ class Output:
 
     Attributes
     ----------
-    request : class
-        Request object
+    coinbase_client : class
+        CoinbaseClient object
     
     Methods
     -------
@@ -21,14 +21,14 @@ class Output:
     forecast_info
         Retrieve and display forecasted mid-price information.
     """
-    def __init__(self, request):
+    def __init__(self, coinbase_client):
         """
         Parameters
         ----------
-        request : class
-            Request object
+        coinbase_client : class
+            CoinbaseClient object
         """
-        self.request = request
+        self.coinbase_client = coinbase_client
 
     def product_info(self, biggest_diff):
         """Retrieves and displays product book information.         
@@ -45,18 +45,17 @@ class Output:
             The updated biggest observed bid-ask difference.
         
         """
-        prod_book_response = self.request.get_product_book()
-        # Read data from json
-        product_data = ProductBook.from_json(prod_book_response)
-        # Basic output
-        best_bid_price = float(product_data.bids.price)
-        best_ask_price = float(product_data.asks.price)
-        best_bid_quant = product_data.bids.quantity
-        best_ask_quant = product_data.asks.quantity
-        book_time = product_data.time
-        bid_ask_diff =  best_ask_price - best_bid_price
+        product_data = self.coinbase_client.get_product_book()
+        product_dict = Metrics(product_data).product_details()
+        book_time = product_dict['book_time']
+        best_bid_price = product_dict['best_bid_price']
+        best_ask_price = product_dict['best_ask_price']
+        best_bid_quant = product_dict['best_bid_quant']
+        best_ask_quant = product_dict['best_ask_quant']
+        bid_ask_diff = product_dict['bid_ask_diff']
         if bid_ask_diff > biggest_diff:
             biggest_diff = bid_ask_diff
+
         print('-----------------------')
         print(f'Book time: {book_time}')
         print('-----------------------')
@@ -67,21 +66,25 @@ class Output:
         print(f'Biggest observed bid-ask difference: {biggest_diff}')
         return biggest_diff
     
-    def mid_price_info(self, *argv):
+    def mid_price_info(self, intervals):
         """Retrieve and display mid-price information.
         This method fetches data from the product candles API endpoint, calculates the mid-price, and prints it for specified time intervals.
 
         Parameters
         ----------
-        *argv : int
-            Variable-length argument list of time intervals (in seconds).
+        intervals : list
+            a list of time intervals (in seconds) for which the mid-price is calculated
         """
         print('-----------------------')
         print('Best bid and ask mid-price')
-        for arg in argv:
-            candles_response = self.request.get_product_candles(60)
-            mid_price = Metrics(candles_response).mid_price(arg)
-            minutes = arg
+        minutes = []
+        mid_prices = []
+        for interval in intervals:
+            candles_data = self.coinbase_client.get_product_candles(60)
+            mid_price = Metrics(candles_data).mid_price(interval)
+            mid_prices.append(mid_price)
+            minutes.append(interval)
+        for mid_price, minutes in zip(mid_prices, minutes):
             print(f'Last {minutes} min: {mid_price}')
 
     def forecast_info(self, granularity, ahead):
@@ -96,7 +99,7 @@ class Output:
         ahead : int
             the time interval (in seconds) ahead for the forecast
         """
-        candles_response = self.request.get_product_candles(granularity)
+        candles_response = self.coinbase_client.get_product_candles(granularity)
         forecast = Metrics(candles_response).forecast_av(ahead)
         print('-----------------------')
         print(f'Forecasted mid-price in {ahead} seconds: {forecast}')
