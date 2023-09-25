@@ -21,7 +21,7 @@ The Coinbase Market Data Tool provides the following insights in its output:
 
 1. Clone or download this repository to your local machine.
 2. Install the required Python libraries if they are not already installed.\
-<ins>Directly in the global Python environment running below command</ins>
+<ins>Directly in the global Python environment running below command</ins>\
 Windows users:
 ```bash
 pip install -r requirements.txt
@@ -30,7 +30,7 @@ macOS/Linux users:
 ```bash
 pip3 install -r requirements.txt
 ```
-<ins>Alternatively virtual environment can be created in the project directory.</ins>
+<ins>Alternatively virtual environment can be created in the project directory.</ins>\
 a) Create venv
 Windows users:
 ```bash
