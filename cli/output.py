@@ -48,7 +48,7 @@ class Output:
             The updated biggest observed bid-ask difference.
         """
         product_data = self.coinbase_client.get_product_book()
-        product_dict = Metrics(product_data).product_details()
+        product_dict = Metrics.product_details(product_data)
         book_time = product_dict['book_time']
         best_bid_price = product_dict['best_bid_price']
         best_ask_price = product_dict['best_ask_price']
@@ -88,7 +88,7 @@ class Output:
         # Get mid-price from each time interval
         for interval in intervals:
             candles_data = self.coinbase_client.get_product_candles(60) # granularity fixed for 60 seconds
-            mid_price = Metrics(candles_data).mid_price(interval)
+            mid_price = Metrics.mid_price(candles_data, interval)
             mid_prices.append(mid_price)
             minutes.append(interval)
 
@@ -113,7 +113,7 @@ class Output:
             the time interval (in seconds) ahead for the forecast
         """
         candles_response = self.coinbase_client.get_product_candles(granularity)
-        forecast = Metrics(candles_response).forecast_av(ahead)
+        forecast = Metrics.forecast_av(candles_response,ahead)
 
         print('-----------------------')
         print(f'Forecasted mid-price in {ahead} seconds: {forecast}')

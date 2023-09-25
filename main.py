@@ -12,6 +12,8 @@ interval = 5
 
 def main():
     try:
+        # Clear console
+        clear_console(system)
         prod_id = str(input('Provide product ID (e.g. BTC-USD): ')).upper().strip() # could be as parameter in CLI input
         biggest_diff_so_far = 0
         starttime = time.time()
@@ -22,7 +24,6 @@ def main():
             output = Output(coinbase_client) # TODO: could split for Helper to get info from Metrics and Output to pring
             
             # ------- CONSOLE OUTPUT -------
-            # Clear console
             clear_console(system)
             print(f'Selected product ID: {prod_id}. Press CTRL+C to change, CTRL+Z to stop the program.')
             # Print information regarding best bid and ask and monitor biggest difference between their value
