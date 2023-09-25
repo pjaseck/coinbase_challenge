@@ -21,7 +21,7 @@ def main():
             # Initialize CoinbaseClient class
             coinbase_client = CoinbaseClient(prod_id)
             # Initialize Output class
-            output = Output(coinbase_client) # TODO: could split for Helper to get info from Metrics and Output to pring
+            output = Output(coinbase_client) # could split for Helper to get info from Metrics and Output to pring
             
             # ------- CONSOLE OUTPUT -------
             clear_console(system)
