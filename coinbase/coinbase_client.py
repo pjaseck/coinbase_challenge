@@ -5,7 +5,7 @@ from coinbase.obj.candle import Candle
 
 class CoinbaseClient:
     """
-    A class used to requests for API responses from Coinbase for a given product ID and convert the response.
+    A class used to request for API responses from Coinbase for a given product ID and convert the response.
 
     Attributes
     ----------
@@ -17,10 +17,10 @@ class CoinbaseClient:
     Methods
     -------
     get_product_book
-        Provides data from API response for a product book.
+        Provides data from API response for a product book as a ProductBook data model.
     
     get_product_candles
-        Provides data from API response for product candles with given granularity.
+        Provides data from API response for product candles with given granularity as a Candle data model.
 
     """
     def __init__(self, prod_id):
@@ -33,9 +33,8 @@ class CoinbaseClient:
         self.prod_id = prod_id
 
     def get_product_book(self):
-        """This method sends an HTTP GET request to the Coinbase Pro API's product book
-        endpoint for the given trading pair, retrieves the order book data in JSON format,
-        and returns the response.
+        """This method sends an HTTP GET request to the Coinbase Pro API's product book endpoint for the given trading pair, 
+        retrieves the order book data in JSON format, transforms and returns as ProductBook object.
 
         Returns
         -------
@@ -52,9 +51,8 @@ class CoinbaseClient:
             raise Exception(f'Failed to retrieve data from the API. Status code: {response.status_code}')
     
     def get_product_candles(self, granularity):
-        """This method sends an HTTP GET request to the Coinbase Pro API's product candles
-        endpoint for the given trading pair and granularity, retrieves the candlestick data at level 1
-        in JSON format, and returns the response.
+        """This method sends an HTTP GET request to the Coinbase Pro API's product candles endpoint for the given trading pair and granularity, 
+        retrieves the candlestick data at level 1 in JSON format, transforms and returns as list of Candle objects.
 
         Parameters
         ----------
@@ -63,8 +61,8 @@ class CoinbaseClient:
         
         Returns
         -------
-        class
-            Candle data model
+        list
+            List of Candle objects
         """
         endpoint = f"https://api.pro.coinbase.com/products/{self.prod_id}/candles?granularity={granularity}"
         response = requests.get(endpoint)

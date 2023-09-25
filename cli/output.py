@@ -19,9 +19,9 @@ class Output:
     product_info
         Retrieves and displays product book information.  
     mid_price_info
-        Retrieve and display mid-price information.
+        Retrieves and displays mid-price information.
     forecast_info
-        Retrieve and display forecasted mid-price information.
+        Retrieves and displays forecasted mid-price information.
     """
     def __init__(self, coinbase_client):
         """
@@ -34,7 +34,8 @@ class Output:
 
     def product_info(self, biggest_diff):
         """Retrieves and displays product book information.         
-        This method fetches data from the product book API endpoint, processes it, and prints relevant information to the console.
+        This method fetches data from the product book API endpoint, retrieves processed data using Metrics method
+        and prints relevant information to the console.
 
         Parameters
         ----------
@@ -45,7 +46,6 @@ class Output:
         -------
         float
             The updated biggest observed bid-ask difference.
-        
         """
         product_data = self.coinbase_client.get_product_book()
         product_dict = Metrics(product_data).product_details()
@@ -55,6 +55,7 @@ class Output:
         best_bid_quant = product_dict['best_bid_quant']
         best_ask_quant = product_dict['best_ask_quant']
         bid_ask_diff = product_dict['bid_ask_diff']
+
         if bid_ask_diff > biggest_diff:
             biggest_diff = bid_ask_diff
 
@@ -66,35 +67,43 @@ class Output:
         print(f'Best ask\nPrice: {best_ask_price}\nAmount: {best_ask_quant}')
         print('-----------------------')
         print(f'Biggest observed bid-ask difference: {biggest_diff}')
+
         return biggest_diff
     
     def mid_price_info(self, intervals):
         """Retrieve and display mid-price information.
-        This method fetches data from the product candles API endpoint, calculates the mid-price, and prints it for specified time intervals.
+        This method fetches data from the product candles API endpoint, retrieves mid-price using Metrics method
+        and prints information to the console.
 
         Parameters
         ----------
         intervals : list
             a list of time intervals (in seconds) for which the mid-price is calculated
         """
-        print('-----------------------')
-        print('Best bid and ask mid-price')
+
         minutes = []
         mid_prices = []
         display_table = []
+
+        # Get mid-price from each time interval
         for interval in intervals:
-            candles_data = self.coinbase_client.get_product_candles(60)
+            candles_data = self.coinbase_client.get_product_candles(60) # granularity fixed for 60 seconds
             mid_price = Metrics(candles_data).mid_price(interval)
             mid_prices.append(mid_price)
             minutes.append(interval)
+
+        # Transform the data into display_table used for printing
         for mid_price, minutes in zip(mid_prices, minutes):
             display_table.append([minutes, mid_price])
+
+        print('-----------------------')
+        print('Best bid and ask mid-price')
         print(tabulate(display_table, headers=['Minutes', 'Mid-price'], floatfmt=".5f"))
 
     def forecast_info(self, granularity, ahead):
         """Retrieve and display forecasted mid-price information.
-        This method fetches data from the product candles API endpoint, calculates a forecasted mid-price for a specified time ahead,
-        and prints the ouput in console.
+        This method fetches data from the product candles API endpoint, retrieves forecasted mid-price using Metrics method
+        and prints information to the console.
 
         Parameters
         ----------
@@ -105,5 +114,6 @@ class Output:
         """
         candles_response = self.coinbase_client.get_product_candles(granularity)
         forecast = Metrics(candles_response).forecast_av(ahead)
+
         print('-----------------------')
         print(f'Forecasted mid-price in {ahead} seconds: {forecast}')

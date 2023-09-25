@@ -15,8 +15,8 @@ class Metrics:
 
     Attributes
     ----------
-    data : class
-        response from API as an object (ProductBook or Candle)
+    data : class or list of classes
+        response from API as ProductBook object or list of Candle objects
 
     Methods
     -------
@@ -32,8 +32,8 @@ class Metrics:
         """
         Parameters
         ----------
-        data : class
-            response from product candle API as an object (ProductBook or Candle)
+        data : class or list of classes
+            response from API as ProductBook object or list of Candle objects
         """
         self.data = data
 

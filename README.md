@@ -10,6 +10,7 @@ The Coinbase Market Data Tool provides the following insights in its output:
 2. Biggest Bid-Ask Difference: It reports the biggest observed difference between the highest bid and lowest ask since the program was started.
 3. Average Mid-Price: The mid-price is calculated as the average price between the highest bid and lowest ask. The tool provides the average mid-price for the last 1, 5, and 15 minutes.
 4. Forecasted Mid-Price: It forecasts the mid-price for the specified product in the next 60 seconds.
+5. Forecasting error - planned for future development
 
 ## Requirements
 
