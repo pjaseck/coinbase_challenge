@@ -1,4 +1,4 @@
-requests
 py_linq
-pandas
+requests
 statsmodels
+tabulate

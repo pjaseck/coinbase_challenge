@@ -20,6 +20,8 @@ def main():
             coinbase_client = CoinbaseClient(prod_id)
             # Initialize Output class
             output = Output(coinbase_client) # TODO: could split for Helper to get info from Metrics and Output to pring
+            
+            # ------- CONSOLE OUTPUT -------
             # Clear console
             clear_console(system)
             print(f'Selected product ID: {prod_id}. Press CTRL+C to change, CTRL+Z to stop the program.')
@@ -30,6 +32,7 @@ def main():
             output.mid_price_info(intervals=[1,5,15])
             # Print forecast of the mid-price in next 60 seconds based on actual data with 60 seconds granularity
             output.forecast_info(granularity=60,ahead=60)
+
             time_elapsed = time.time() - starttime
             time_remaining = interval - time_elapsed % interval
             time.sleep(time_remaining)

@@ -1,7 +1,6 @@
 import time
 import warnings
 
-import pandas as pd
 from py_linq import Enumerable
 from statsmodels.tools.sm_exceptions import ConvergenceWarning
 from statsmodels.tsa.statespace.sarimax import SARIMAX

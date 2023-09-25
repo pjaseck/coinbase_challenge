@@ -1,3 +1,5 @@
+from tabulate import tabulate
+
 from metrics import Metrics
 
 
@@ -79,13 +81,15 @@ class Output:
         print('Best bid and ask mid-price')
         minutes = []
         mid_prices = []
+        display_table = []
         for interval in intervals:
             candles_data = self.coinbase_client.get_product_candles(60)
             mid_price = Metrics(candles_data).mid_price(interval)
             mid_prices.append(mid_price)
             minutes.append(interval)
         for mid_price, minutes in zip(mid_prices, minutes):
-            print(f'Last {minutes} min: {mid_price}')
+            display_table.append([minutes, mid_price])
+        print(tabulate(display_table, headers=['Minutes', 'Mid-price'], floatfmt=".5f"))
 
     def forecast_info(self, granularity, ahead):
         """Retrieve and display forecasted mid-price information.
