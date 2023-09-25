@@ -20,14 +20,53 @@ The Coinbase Market Data Tool provides the following insights in its output:
 ## Getting Started
 
 1. Clone or download this repository to your local machine.
-2. Install the required Python libraries if they are not already installed:
+2. Install the required Python libraries if they are not already installed.
+Directly in the global Python environment running below command:
 
+<u>Windows users:</u>
 ```bash
 pip install -r requirements.txt
+```
+<u>macOS/Linux users:</u>
+```bash
+pip3 install -r requirements.txt
+```
+Alternatively virtual environment can be created in the project directory.
+a) Create venv
+<u>Windows users:</u>
+```bash
+python -m venv venv
+```
+<u>macOS/Linux users:</u>
+```bash
+python3 -m venv venv
+```
+b) Activate venv
+<u>Windows users:</u>
+```bash
+venv\Scripts\activate
+```
+<u>macOS/Linux users:</u>
+```bash
+source venv/bin/activate
+```
+c) Install libraries based on requirements.txt in venv
+<u>Windows users:</u>
+```bash
+pip install -r requirements.txt
+```
+<u>macOS/Linux users:</u>
+```bash
+pip3 install -r requirements.txt
 ```
 
 3. Run the program by executing the main Python script:
 
+<u>Windows users:</u>
+```bash
+python3 main.py
+```
+<u>macOS/Linux users:</u>
 ```bash
 python3 main.py
 ```
@@ -37,5 +76,6 @@ python3 main.py
 
 ## Notes
 The program uses Coinbase's API to fetch real-time market data. Ensure that you have a stable internet connection for accurate data retrieval. Note that API urls may change in future.
+Coinbase documentation: https://docs.cloud.coinbase.com/exchange/docs/welcome
 
 
